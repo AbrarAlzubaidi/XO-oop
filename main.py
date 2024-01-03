@@ -112,7 +112,7 @@ class Game:
             self.end_game()
     
     def end_game(self):
-        self.menu.show_finish_menu()
+        print('Thank you')
     
     def play_game(self):
         self.player1.choose_name()
@@ -125,12 +125,17 @@ class Game:
         self.board.show_board()
         
         for i in range(9):
-            
-            player_choice = input(f'\n {self.player1.name} turn, now choose a place to put ({self.player1.symbol})> ')
-            self.board.update_board(int(player_choice), self.player1.symbol)
-        
-        print('\n')
-        self.board.show_board()
+            if self.curr_player_idx == 1:
+                player1_choice = input(f'\n {self.player1.name} turn {i+1}, now choose a place to put ({self.player1.symbol})> ')
+                self.board.update_board(int(player1_choice), self.player1.symbol)
+                self.curr_player_idx = 2
+            else:   
+                player2_choice = input(f'\n {self.player2.name} turn{i+1}, now choose a place to put ({self.player2.symbol})> ')
+                self.board.update_board(int(player2_choice), self.player2.symbol)
+                self.curr_player_idx = 1
+                
+            print('\n')
+            self.board.show_board()
         
         
         
@@ -142,7 +147,8 @@ class Game:
         pass
     
     def restart_game(self):
-        pass    
+        self.menu.show_finish_menu()
+    
         
              
 if __name__ == "__main__":
